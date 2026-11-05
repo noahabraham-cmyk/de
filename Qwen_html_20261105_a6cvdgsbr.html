@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Inner Diya - A Diwali Experience</title>
+    <style>
+        /* --- RESET & BASE --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { 
+            height: 100%; 
+            background-color: #0a0a0a; 
+            color: #e0e0e0; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- SCROLL SNAP CONTAINER --- */
+        .experience-container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        /* Hide scrollbar for a cleaner look (optional) */
+        .experience-container::-webkit-scrollbar { display: none; }
+        .experience-container { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* --- INDIVIDUAL SCREENS (BEATS) --- */
+        .beat {
+            height: 100vh;
+            width: 100vw;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .beat-content {
+            max-width: 600px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .beat.active .beat-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1 { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 300; margin-bottom: 1rem; color: #fff; letter-spacing: -0.5px; }
+        p { font-size: clamp(1rem, 2.5vw, 1.2rem); line-height: 1.6; color: #b0b0b0; margin-bottom: 1.5rem; }
+        
+        .slack-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 153, 51, 0.1);
+            border: 1px solid rgba(255, 153, 51, 0.4);
+            color: #FF9933;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .slack-link:hover { background: rgba(255, 153, 51, 0.2); }
+
+        /* --- BEAT 1: THE DIYA --- */
+        .diya-wrapper { cursor: pointer; margin-bottom: 2rem; }
+        .diya-base {
+            width: 60px; height: 30px; background: #333; 
+            border-radius: 0 0 50% 50% / 0 0 100% 100%; 
+            margin: 0 auto; transition: background 0.5s;
+        }
+        .diya-flame {
+            width: 16px; height: 24px; background: transparent;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            margin: 0 auto 5px; transition: all 0.8s ease;
+        }
+        .diya-wrapper.lit .diya-base { background: #5c3a21; }
+        .diya-wrapper.lit .diya-flame { 
+            background: #FF9933; 
+            box-shadow: 0 0 20px 8px rgba(255, 153, 51, 0.6), 0 0 40px 15px rgba(255, 100, 0, 0.3);
+            animation: flicker 2s infinite alternate;
+        }
+        @keyframes flicker {
+            0% { transform: scale(1) rotate(-1deg); opacity: 0.9; }
+            100% { transform: scale(1.05) rotate(1deg); opacity: 1; }
+        }
+        .click-hint { font-size: 0.8rem; color: #666; margin-top: 1rem; transition: opacity 0.5s; }
+        .diya-wrapper.lit + .click-hint { opacity: 0; }
+
+        /* --- BEAT 3: RANGOLI SVG --- */
+        .rangoli-svg { width: 150px; height: 150px; margin-bottom: 2rem; }
+        .rangoli-line {
+            fill: none; stroke: #FF9933; stroke-width: 1.5;
+            stroke-dasharray: 300; stroke-dashoffset: 300;
+            transition: stroke-dashoffset 2.5s ease-in-out;
+        }
+        .beat.active .rangoli-line { stroke-dashoffset: 0; }
+
+        /* --- BEAT 5: COLLECTIVE FLAMES --- */
+        .flame-grid {
+            display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px;
+            margin-bottom: 2rem;
+        }
+        .mini-diya {
+            width: 12px; height: 12px; background: #222; border-radius: 50%;
+            transition: all 1s ease;
+        }
+        .mini-diya.lit {
+            background: #FF9933;
+            box-shadow: 0 0 10px 4px rgba(255, 153, 51, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+<main class="experience-container">
+    
+    <!-- BEAT 1: THE SPARK -->
+    <section class="beat" id="beat-1">
+        <div class="beat-content">
+            <div class="diya-wrapper" id="main-diya" onclick="lightDiya()">
+                <div class="diya-flame"></div>
+                <div class="diya-base"></div>
+            </div>
+            <h1>Before the light, there is the quiet.</h1>
+            <p>Take a breath. Click the lamp to begin.</p>
+            <p class="click-hint">↑ Tap the lamp ↑</p>
+        </div>
+    </section>
+
+    <!-- BEAT 2: LIGHT OVER DARKNESS -->
+    <section class="beat" id="beat-2">
+        <div class="beat-content">
+            <h1>Light over Darkness</h1>
+            <p>Diwali celebrates the return of light after a long, dark period. It reminds us of our resilience.</p>
+            <p>What is a challenge you’ve navigated recently that made you stronger?</p>
+            <!-- REPLACE THE # WITH YOUR SLACK THREAD LINK -->
+            <a href="#" class="slack-link" target="_blank">Share your light in Slack →</a>
+        </div>
+    </section>
+
+    <!-- BEAT 3: KNOWLEDGE OVER IGNORANCE -->
+    <section class="beat" id="beat-3">
+        <div class="beat-content">
+            <svg class="rangoli-svg" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" class="rangoli-line" />
+                <circle cx="50" cy="50" r="25" class="rangoli-line" />
+                <line x1="10" y1="50" x2="90" y2="50" class="rangoli-line" />
+                <line x1="50" y1="10" x2="50" y2="90" class="rangoli-line" />
+                <line x1="22" y1="22" x2="78" y2="78" class="rangoli-line" />
+                <line x1="78" y1="22" x2="22" y2="78" class="rangoli-line" />
+            </svg>
+            <h1>Knowledge over Ignorance</h1>
+            <p>Light is also the pursuit of learning. Dispelling the dark of the unknown brings growth.</p>
+            <p>What is something new you are learning or exploring right now?</p>
+            <!-- REPLACE THE # WITH YOUR SLACK THREAD LINK -->
+            <a href="#" class="slack-link" target="_blank">Share your growth in Slack →</a>
+        </div>
+    </section>
+
+    <!-- BEAT 4: INNER PROSPERITY -->
+    <section class="beat" id="beat-4">
+        <div class="beat-content">
+            <h1>Prosperity of the Mind</h1>
+            <p>We celebrate Lakshmi not just for material wealth, but for the prosperity of the spirit. Cultivating empathy, kindness, and peace is our true wealth.</p>
+            <p>Take a moment to appreciate the abundance of good things in your life today.</p>
+        </div>
+    </section>
+
+    <!-- BEAT 5: THE COLLECTIVE FLAME -->
+    <section class="beat" id="beat-5">
+        <div class="beat-content">
+            <div class="flame-grid" id="flame-grid">
+                <!-- 25 mini diyas generated by JS -->
+            </div>
+            <h1>One light illuminates a room.</h1>
+            <p>Many lights illuminate the world. Thank you for bringing your light to our team.</p>
+            <p style="color: #FF9933; font-weight: 500;">Happy Diwali.</p>
+            <!-- REPLACE THE # WITH YOUR SLACK THREAD LINK -->
+            <a href="#" class="slack-link" target="_blank">Light up the Slack thread →</a>
+        </div>
+    </section>
+
+</main>
+
+<script>
+    // 1. Handle the main Diya click
+    function lightDiya() {
+        const diya = document.getElementById('main-diya');
+        diya.classList.add('lit');
+        // Optional: auto-scroll to next beat after a pause
+        setTimeout(() => {
+            document.getElementById('beat-2').scrollIntoView({ behavior: 'smooth' });
+        }, 1500);
+    }
+
+    // 2. Generate the 25 mini diyas for Beat 5
+    const grid = document.getElementById('flame-grid');
+    for (let i = 0; i < 25; i++) {
+        const div = document.createElement('div');
+        div.className = 'mini-diya';
+        grid.appendChild(div);
+    }
+
+    // 3. Intersection Observer to trigger animations when screens come into view
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                
+                // Special logic for Beat 5: light up the grid sequentially
+                if (entry.target.id === 'beat-5') {
+                    const diyas = entry.target.querySelectorAll('.mini-diya');
+                    diyas.forEach((d, index) => {
+                        setTimeout(() => d.classList.add('lit'), index * 100);
+                    });
+                }
+            }
+        });
+    }, { threshold: 0.5 }); // Trigger when 50% of the screen is visible
+
+    document.querySelectorAll('.beat').forEach(beat => observer.observe(beat));
+</script>
+
+</body>
+</html>

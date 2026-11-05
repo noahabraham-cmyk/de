@@ -1,0 +1,37 @@
+/* The Container */
+.experience-container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory; /* This forces the "one beat per screen" snap */
+  background-color: #0a0a0a;
+  color: #f5f5f5;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Each Screen */
+.beat {
+  height: 100vh;
+  width: 100vw;
+  scroll-snap-align: start; /* Snaps to the top of each section */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* The Glowing Diya */
+.diya {
+  width: 40px;
+  height: 40px;
+  background: #333;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.8s ease;
+}
+
+.diya.lit {
+  background: #FF9933;
+  box-shadow: 0 0 40px 15px rgba(255, 153, 51, 0.6);
+}
